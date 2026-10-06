@@ -6,6 +6,8 @@ import FormField from "./components/FormField";
 import CompanyType from "./components/CompanyType";
 import EmployeeSize from "./components/EmployeeSize";
 import BusinessAddress from "./components/BusinessAddress";
+import ConfirmDetails from "./components/ConfirmDetails";
+import Success from "./components/Success";
 
 function App() {
   const [businessTitle, setBusinessTitle] = useState("");
@@ -23,18 +25,58 @@ function App() {
     zipcode: "",
   });
   const [sameAddress, setSameAddress] = useState(true);
-
+  const [currentStep, setCurrentStep] = useState(2);
+  const [submitted, setSubmitted] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+      // Continue =============== //
   const handleContinue = () => {
-    console.log({
-      businessTitle,
-      description,
-      companyType,
-      employeeSize,
-      address,
-      sameAddress,
-    });
-  };
+  setShowConfirm(true);
+};
 
+const handleBack = () => {
+  setShowConfirm(false);
+};
+
+const handleSubmit = () => {
+  setSubmitted(true);
+};
+if (submitted) {
+  return (
+    <div className="min-h-screen bg-[#f8fafc]">
+      <Header 
+      onBack={() => window.location.href = "/"}/>
+      <Success
+        onBack={() => {
+          setSubmitted(false);
+          setCurrentStep(2);
+        }}
+      />
+    </div>
+  );
+}
+
+if (showConfirm) {
+  return (
+    <div className="min-h-screen bg-[#f8fafc]">
+      <Header />
+
+      <main className="mx-auto flex w-full max-w-[1240px] flex-col px-4 pb-12 pt-6 sm:px-8 sm:pt-8 lg:flex-row lg:gap-14 lg:px-12 lg:pt-14">
+        <Stepper currentStep={2} />
+
+        <ConfirmDetails
+          businessTitle={businessTitle}
+          description={description}
+          companyType={companyType}
+          employeeSize={employeeSize}
+          address={address}
+          sameAddress={sameAddress}
+          onBack={handleBack}
+          onSubmit={handleSubmit}
+        />
+      </main>
+    </div>
+  );
+}
   return (
     <div className="min-h-screen bg-[#f8fafc]">
       {/* HEADER */}
@@ -43,7 +85,7 @@ function App() {
       {/* MAIN CONTAINER */}
       <main className="mx-auto flex w-full max-w-[1240px] flex-col px-4 pb-12 pt-6 sm:px-8 sm:pt-8 lg:flex-row lg:gap-14 lg:px-12 lg:pt-14">
         {/* STEPPER */}
-        <Stepper currentStep={2} />
+        <Stepper currentStep={currentStep} />
 
         {/* FORM SECTION */}
         <section className="min-w-0 w-full flex-1">

@@ -2,11 +2,6 @@ import { Check, Circle } from "lucide-react";
 
 const steps = [
   "Create account",
-  "Business overview",
-  "Build profile",
-  "Bank details",
-  "Tax information",
-  "Two-factor authentication",
   "Confirm details",
 ];
 

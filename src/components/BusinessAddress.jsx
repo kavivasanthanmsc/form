@@ -56,9 +56,11 @@ function BusinessAddress({ address, setAddress }) {
 
         <input
           type="text"
+          inputMode="numeric"
+          maxLength={6}
           placeholder="Zipcode"
           value={address.zipcode}
-          onChange={(e) => updateField("zipcode", e.target.value)}
+          onChange={(e) => updateField("zipcode", e.target.value.replace(/\D/g, ""))}
           className="h-[40px] rounded-md border border-gray-200 bg-white px-3 text-xs text-gray-700 outline-none focus:border-blue-500 sm:h-[42px] sm:rounded-lg sm:px-4 sm:text-sm"
         />
       </div>
